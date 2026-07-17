@@ -1,69 +1,39 @@
-<!DOCTYPE HTML>
-<!--
-	Solid State by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		{% include google_tag.html %}
-		<title>TR</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="/assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% include google_tag.html %}
+	<title>{{ page.title }} · TR</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="{{ page.excerpt | strip_html | truncatewords: 24 }}" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+</head>
+<body>
 
-		<!--  Causing the start of the page to have A -> B on the nav
-		<pre><code class="language-mermaid">graph LR
-			A--&gt;B</code></pre>
-			<div class="mermaid">graph LR
-			A--&gt;B</div>   -->
+	{% include navigation.html %}
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
+	<div class="wrap post-header">
+		<span class="post-date">{{ page.date | date: "%B %-d, %Y" }}</span>
+		<h1>{{ page.title }}</h1>
+		{% if page.subtitle %}<p class="subtitle">{{ page.subtitle }}</p>{% endif %}
+	</div>
 
-				<!-- Header -->
-					{% include navigation.html %}
+	<div class="wrap post-content">
+		{{ content }}
+		<a class="back-link" href="{{ '/blog.html' | relative_url }}">&larr; back to blog</a>
+	</div>
 
-				<!-- Wrapper -->
-					<section id="wrapper">
-						<header>
-							<div class="inner">
-								<h2>{{ page.title }}</h2>
-								<p>{{ page.subtitle }}</p>
-							</div>
-						</header>
+	{% include footer.html %}
 
-						<!-- Content -->
-							<div class="wrapper">
-								<div class="inner">
-									{{ content }}
-								</div>
-							</div>
-					</section>
-		<!-- Scripts-->
-			<script src="/assets/js/jquery.min.js"></script>
-			<script src="/assets/js/jquery.scrollex.min.js"></script>
-			<script src="/assets/js/browser.min.js"></script>
-			<script src="/assets/js/breakpoints.min.js"></script>
-			<script src="/assets/js/util.js"></script>
-			<script src="/assets/js/main.js"></script>
-        
-	</body>
+	<script src="{{ '/assets/js/nav.js' | relative_url }}"></script>
+	{% if page.content contains 'language-mermaid' %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
 	<script>
-		var config = {
-			startOnLoad:true,
-			theme: 'forest',
-			flowchart:{
-					useMaxWidth:false,
-					htmlLabels:true
-				}
-		};
-		mermaid.initialize(config);
+		mermaid.initialize({ startOnLoad: true, theme: 'dark' });
 		window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-		</script>
-
-</html
+	</script>
+	{% endif %}
+</body>
+</html>
